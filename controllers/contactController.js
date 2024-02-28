@@ -24,7 +24,7 @@ const getAllContacts = asyncHandler(async (req, res) => {
 const createContact = asyncHandler(async (req, res) => {
   console.log("Requested body- ", req.body);
 
-  //extracting the name, email, and mobile properties from req.body.
+ //extracting the name, email, and mobile properties from req.body.
   const { name, email, mobile } = req.body;
 
   //if any field is empty then don't create contact
@@ -41,6 +41,7 @@ const createContact = asyncHandler(async (req, res) => {
     mobile,
     userID: req.user.id,
   });
+  
   res.status(201).json(contact);
 });
 
