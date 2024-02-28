@@ -84,8 +84,8 @@ const updateContact = asyncHandler(async (req, res) => {
   res.status(200).json(updatedContact);
 });
 
-//@desc Get all contacts
-//@route GET /api/contacts
+//@desc Delete contact
+//@route DELETE /api/contacts/:id
 //@access public
 const deleteContact = asyncHandler(async(req, res) => {
     const contactToFind = await Contact.findById(req.params.id);
