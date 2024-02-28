@@ -3,6 +3,11 @@ const express = require("express");
 // helps keep sensitive information separate from your codebase,
 //and it allows for easier configuration management across different environments.
 const dotenv = require("dotenv").config();
+const errorHandler = require("./middleware/errorHandler");
+const connectDb = require("./config/dbConnection");
+
+//connecting to database
+connectDb();
 
 //creating an instance of express(), you are initializing your web application using the Express framework.
 const app = express();
@@ -12,6 +17,12 @@ const port = process.env.PORT || 5000;
 
 //middleware automatically parses the JSON data and makes it available in req.body
 app.use(express.json());
+
+//Middleware
+app.use("/api/contacts", require("./routes/contactRoutes"));
+
+//To handle errors
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);
