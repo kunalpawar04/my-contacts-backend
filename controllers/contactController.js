@@ -24,24 +24,25 @@ const getAllContacts = asyncHandler(async (req, res) => {
 const createContact = asyncHandler(async (req, res) => {
   console.log("Requested body- ", req.body);
 
- //extracting the name, email, and mobile properties from req.body.
+  // Extracting the name, email, and mobile properties from req.body.
   const { name, email, mobile } = req.body;
 
-  //if any field is empty then don't create contact
+  // If any field is empty, then don't create contact
   if (!name || !email || !mobile) {
     res.status(400);
     throw new Error("All fields are mandatory!");
   }
 
-  //create a new record or document in a database collection.
-  //result of Contact.create operation is stored in variable contact. This variable will hold the newly created contact object or document,
+  // Create a new record or document in a database collection.
+  // Result of Contact.create operation is stored in variable contact.
+  // This variable will hold the newly created contact object or document.
   const contact = await Contact.create({
     name,
-    email,
     mobile,
+    email,
     userID: req.user.id,
   });
-  
+
   res.status(201).json(contact);
 });
 
@@ -78,7 +79,7 @@ const updateContact = asyncHandler(async (req, res) => {
     req.params.id,
     // data you want to use to update the document.
     req.body,
-    // specifying that the method should return the modified document rather than the original one. 
+    // specifying that the method should return the modified document rather than the original one.
     { new: true }
   );
 
@@ -88,27 +89,27 @@ const updateContact = asyncHandler(async (req, res) => {
 //@desc Delete contact
 //@route DELETE /api/contacts/:id
 //@access public
-const deleteContact = asyncHandler(async(req, res) => {
-    const contactToFind = await Contact.findById(req.params.id);
-    if(!contactToFind) {
-        res.status(404);
-        throw new Error("Contact not found");
-    }
+const deleteContact = asyncHandler(async (req, res) => {
+  const contactToFind = await Contact.findById(req.params.id);
+  if (!contactToFind) {
+    res.status(404);
+    throw new Error("Contact not found");
+  }
 
-    if(contactToFind.userID.toString() !== req.user.id) {
-        res.status(403);
-        throw new Error("User don't have permission to update other user contacts");
-    }
+  if (contactToFind.userID.toString() !== req.user.id) {
+    res.status(403);
+    throw new Error("User don't have permission to update other user contacts");
+  }
 
-    //Deleting contact after matching with ID
-    await Contact.findByIdAndDelete(req.params.id);
-    res.status(200);
+  //Deleting contact after matching with ID
+  await Contact.findByIdAndDelete(req.params.id);
+  res.status(200);
 });
 
 module.exports = {
-    getAllContacts,
-    createContact,
-    getContact,
-    updateContact,
-    deleteContact,
-}
+  getAllContacts,
+  createContact,
+  getContact,
+  updateContact,
+  deleteContact,
+};
