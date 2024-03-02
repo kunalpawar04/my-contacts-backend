@@ -14,7 +14,7 @@ const contactSchema = mongoose.Schema(
 
       //reference to another Mongoose model, in this case, the "User" model.
       //It establishes a relationship between the current schema and the "User" model
-      ref: "User",
+      // ref: "User",
     },
     name: {
       type: String,
