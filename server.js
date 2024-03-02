@@ -20,6 +20,7 @@ app.use(express.json());
 
 //Middleware
 app.use("/api/contacts", require("./routes/contactRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 //To handle errors
 app.use(errorHandler);
