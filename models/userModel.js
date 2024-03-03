@@ -29,3 +29,6 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+// the model is named "User," and it will interact with the "users" collection in the MongoDB database
+module.exports = mongoose.model("User", userSchema);

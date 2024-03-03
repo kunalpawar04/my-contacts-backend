@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 
-// `next`: allows the middleware to pass control to the next function in the request-response cycle.
+// `next` allows the middleware to pass control to the next function in the request-response cycle.
 // If `next` is not called, the request might be left hanging, and the response may not be sent.
 const validateToken = asyncHandler(async (req, res, next) => {
   let token;
